@@ -118,4 +118,12 @@ root@controlplane:~$ kubectl -n aula8 get pod web-saude
 NAME        READY   STATUS    RESTARTS   AGE
 web-saude   1/1     Running   0          8m25s
 
+Passo 7
+root@controlplane:~$ kubectl -n aula8 exec web-saude -- \
+  rm /usr/share/nginx/html/health
+root@controlplane:~$ kubectl -n aula8 get pod web-saude -w
+NAME        READY   STATUS    RESTARTS   AGE
+web-saude   1/1     Running   0          9m4s
+web-saude   0/1     Running   0          9m5s
+
 
