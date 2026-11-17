@@ -1,4 +1,5 @@
 # Aula-8-computacao-em-nuvem
+Erick da Silva ROdrigues
 Passo 1:
 root@controlplane:~$ kubectl get nodes
 NAME           STATUS   ROLES           AGE   VERSION
