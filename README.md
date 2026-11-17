@@ -9,3 +9,26 @@ namespace/aula8 created
 root@controlplane:~$ kubectl get namespace aula8
 NAME    STATUS   AGE
 aula8   Active   8s
+
+Passo 2:
+root@controlplane:~$ cat > web-saude.yaml <<'EOF'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-saude
+  namespace: aula8
+spec:
+  containers:
+  - name: nginx
+    image: nginx:alpine
+    ports:
+    - containerPort: 80
+    livenessProbe:
+      httpGet: {path: /, port: 80}
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    readinessProbe:
+      httpGet: {path: /health, port: 80}
+      initialDelaySeconds: 2
+      periodSeconds: 5
+EOF
