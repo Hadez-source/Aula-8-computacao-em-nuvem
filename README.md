@@ -126,4 +126,30 @@ NAME        READY   STATUS    RESTARTS   AGE
 web-saude   1/1     Running   0          9m4s
 web-saude   0/1     Running   0          9m5s
 
+Passo 8 
+^Croot@controlplane:~kubectl -n aula8 exec web-saude -- \ \
+  wget -qO- http://localhost/ >/dev/null
+root@controlplane:~$ kubectl -n aula8 logs web-saude --tail=20
+192.168.1.92 - - [17/Nov/2026:00:20:49 +0000] "GET / HTTP/1.1" 200 896 "-" "kube-probe/1.37" "-"
+2026/11/17 00:20:54 [error] 30#30: *236 open() "/usr/share/nginx/html/health" failed (2: No such file or directory), client: 192.168.1.92, server: localhost, request: "GET /health HTTP/1.1", host: "192.168.1.46:80"
+192.168.1.92 - - [17/Nov/2026:00:20:54 +0000] "GET /health HTTP/1.1" 404 153 "-" "kube-probe/1.37" "-"
+192.168.1.92 - - [17/Nov/2026:00:20:54 +0000] "GET / HTTP/1.1" 200 896 "-" "kube-probe/1.37" "-"
+2026/11/17 00:20:59 [error] 30#30: *238 open() "/usr/share/nginx/html/health" failed (2: No such file or directory), client: 192.168.1.92, server: localhost, request: "GET /health HTTP/1.1", host: "192.168.1.46:80"
+192.168.1.92 - - [17/Nov/2026:00:20:59 +0000] "GET /health HTTP/1.1" 404 153 "-" "kube-probe/1.37" "-"
+192.168.1.92 - - [17/Nov/2026:00:20:59 +0000] "GET / HTTP/1.1" 200 896 "-" "kube-probe/1.37" "-"
+2026/11/17 00:21:04 [error] 30#30: *240 open() "/usr/share/nginx/html/health" failed (2: No such file or directory), client: 192.168.1.92, server: localhost, request: "GET /health HTTP/1.1", host: "192.168.1.46:80"
+192.168.1.92 - - [17/Nov/2026:00:21:04 +0000] "GET /health HTTP/1.1" 404 153 "-" "kube-probe/1.37" "-"
+192.168.1.92 - - [17/Nov/2026:00:21:04 +0000] "GET / HTTP/1.1" 200 896 "-" "kube-probe/1.37" "-"
+::1 - - [17/Nov/2026:00:21:04 +0000] "GET / HTTP/1.1" 200 896 "-" "Wget" "-"
+2026/11/17 00:21:09 [error] 30#30: *243 open() "/usr/share/nginx/html/health" failed (2: No such file or directory), client: 192.168.1.92, server: localhost, request: "GET /health HTTP/1.1", host: "192.168.1.46:80"
+192.168.1.92 - - [17/Nov/2026:00:21:09 +0000] "GET /health HTTP/1.1" 404 153 "-" "kube-probe/1.37" "-"
+192.168.1.92 - - [17/Nov/2026:00:21:09 +0000] "GET / HTTP/1.1" 200 896 "-" "kube-probe/1.37" "-"
+2026/11/17 00:21:14 [error] 30#30: *245 open() "/usr/share/nginx/html/health" failed (2: No such file or directory), client: 192.168.1.92, server: localhost, request: "GET /health HTTP/1.1", host: "192.168.1.46:80"
+192.168.1.92 - - [17/Nov/2026:00:21:14 +0000] "GET /health HTTP/1.1" 404 153 "-" "kube-probe/1.37" "-"
+192.168.1.92 - - [17/Nov/2026:00:21:14 +0000] "GET / HTTP/1.1" 200 896 "-" "kube-probe/1.37" "-"
+2026/11/17 00:21:19 [error] 30#30: *247 open() "/usr/share/nginx/html/health" failed (2: No such file or directory), client: 192.168.1.92, server: localhost, request: "GET /health HTTP/1.1", host: "192.168.1.46:80"
+192.168.1.92 - - [17/Nov/2026:00:21:19 +0000] "GET /health HTTP/1.1" 404 153 "-" "kube-probe/1.37" "-"
+192.168.1.92 - - [17/Nov/2026:00:21:19 +0000] "GET / HTTP/1.1" 200 896 "-" "kube-probe/1.37" "-"
+root@controlplane:~$ 
+
 
