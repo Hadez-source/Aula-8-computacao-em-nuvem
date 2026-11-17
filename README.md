@@ -164,3 +164,21 @@ Quando removemos o arquivo novamente, o Pod continuou funcionando, mas deixou de
 4 Qual foi a conclusão?
 Entendi que um Pod pode estar funcionando normalmente, mas não estar pronto para receber requisições. Isso acontece porque as verificações de saúde do Kubernetes são importantes para identificar se a aplicação está funcionando corretamente.
 
+
+Desafio:
+
+1. Se liveness está boa e readiness falha, reiniciar ajuda neste caso?
+
+Não, porque o problema não está no funcionamento do Pod, mas sim na falta do arquivo /health. Reiniciar não resolveria o problema, pois o arquivo continuaria não existindo.
+
+2. Que risco existiria em enviar tráfego ao Pod enquanto /health responde 404?
+
+O risco seria enviar requisições para uma aplicação que não está pronta, podendo causar erros e prejudicar o funcionamento do serviço.
+
+3. Onde você olharia primeiro para investigar: get, describe ou logs? Por quê?
+
+Eu olharia primeiro o describe, porque ele mostra os eventos e os erros das verificações de saúde, ajudando a entender o que está acontecendo com o Pod.
+
+4. Tabela preenchida e justificativa de 3 a 5 linhas.
+
+Antes de criar o arquivo, o Pod estava funcionando, mas não estava pronto para receber requisições. Depois de criar o /health, ele ficou pronto e a verificação funcionou normalmente. Quando removemos o arquivo, o Pod voltou a ficar como não pronto, mas sem reiniciar. Com isso entendi que estar funcionando não significa necessariamente estar pronto para receber acessos.
