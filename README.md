@@ -31,4 +31,67 @@ spec:
       httpGet: {path: /health, port: 80}
       initialDelaySeconds: 2
       periodSeconds: 5
-EOF
+EOF 
+
+Passo 3:
+root@controlplane:~$ kubectl apply -f web-saude.yaml
+pod/web-saude created
+root@controlplane:~$ kubectl -n aula8 get pod web-saude
+NAME        READY   STATUS    RESTARTS   AGE
+web-saude   0/1     Running   0          14s
+root@controlplane:~$ kubectl -n aula8 describe pod web-saude
+Name:             web-saude
+Namespace:        aula8
+Priority:         0
+Service Account:  default
+Node:             node01/172.30.2.2
+Start Time:       Tue, 17 Nov 2026 00:11:04 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               192.168.1.46
+IPs:
+  IP:  192.168.1.46
+Containers:
+  nginx:
+    Container ID:   containerd://a6921602f31d55439e16d524a45c28e776b0eec6bdd4b5c474be5fe079a3b19b
+    Image:          nginx:alpine
+    Image ID:       docker.io/library/nginx@sha256:fed7e14be83cbd2661a75cdc5b872d936cf155d46c327084d30b8df19ae88d72
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Tue, 17 Nov 2026 00:11:12 +0000
+    Ready:          False
+    Restart Count:  0
+    Liveness:       http-get http://:80/ delay=5s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Readiness:      http-get http://:80/health delay=2s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-7kwc4 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-7kwc4:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age               From               Message
+  ----     ------     ----              ----               -------
+  Normal   Scheduled  25s               default-scheduler  Successfully assigned aula8/web-saude to node01
+  Normal   Pulling    20s               kubelet            spec.containers{nginx}: Pulling image "nginx:alpine"
+  Normal   Pulled     17s               kubelet            spec.containers{nginx}: Successfully pulled image "nginx:alpine" in 2.932s (2.932s including waiting). Image size: 26368486 bytes.
+  Normal   Created    17s               kubelet            spec.containers{nginx}: Container created
+  Normal   Started    17s               kubelet            spec.containers{nginx}: Container started
+  Warning  Unhealthy  5s (x3 over 15s)  kubelet            spec.containers{nginx}: Readiness probe failed: HTTP probe failed with statuscode: 404
