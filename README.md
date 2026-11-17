@@ -152,4 +152,15 @@ root@controlplane:~$ kubectl -n aula8 logs web-saude --tail=20
 192.168.1.92 - - [17/Nov/2026:00:21:19 +0000] "GET / HTTP/1.1" 200 896 "-" "kube-probe/1.37" "-"
 root@controlplane:~$ 
 
+Passo 9
+O Pod estava funcionando, mas não estava pronto para receber requisições, pois a página /health não existia. O READY estava 0/1 e não houve reinicializações.
+
+2 Com /health:
+Depois que criamos o arquivo /health, o Pod ficou pronto para receber requisições. A verificação funcionou normalmente e retornou OK. O READY ficou 1/1.
+
+3 Após remover:
+Quando removemos o arquivo novamente, o Pod continuou funcionando, mas deixou de estar pronto, pois a verificação voltou a apresentar erro 404. O READY voltou para 0/1, mas não houve reinicializações.
+
+4 Qual foi a conclusão?
+Entendi que um Pod pode estar funcionando normalmente, mas não estar pronto para receber requisições. Isso acontece porque as verificações de saúde do Kubernetes são importantes para identificar se a aplicação está funcionando corretamente.
 
